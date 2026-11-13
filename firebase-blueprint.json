@@ -1,0 +1,318 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Private seeker profile, Star Dust balance, language preference, and daily check-in streak state.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 320
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "mysticTitle": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "avatarUrl": {
+          "type": "string",
+          "maxLength": 120000
+        },
+        "language": {
+          "type": "string",
+          "enum": ["vi", "en"]
+        },
+        "starDustBalance": {
+          "type": "integer"
+        },
+        "checkInStreak": {
+          "type": "integer"
+        },
+        "lastCheckInDate": {
+          "type": "string",
+          "maxLength": 10,
+          "pattern": "^([0-9]{4}-[0-9]{2}-[0-9]{2})?$"
+        },
+        "lastCheckInAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "totalCheckIns": {
+          "type": "integer"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "uid",
+        "email",
+        "displayName",
+        "mysticTitle",
+        "avatarUrl",
+        "language",
+        "starDustBalance",
+        "checkInStreak",
+        "lastCheckInDate",
+        "totalCheckIns",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "StarDustTransaction": {
+      "title": "StarDustTransaction",
+      "description": "Immutable Star Dust ledger entry paired atomically with balance mutations.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["welcome_grant", "daily_checkin", "streak_bonus", "tarot_reading"]
+        },
+        "amount": {
+          "type": "integer"
+        },
+        "balanceAfter": {
+          "type": "integer"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "relatedReadingId": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "type",
+        "amount",
+        "balanceAfter",
+        "description",
+        "createdAt"
+      ]
+    },
+    "TarotReading": {
+      "title": "TarotReading",
+      "description": "Saved Mystical Manga Tarot reading with manual card selections, orientations, guidebook lore, and Gemini interpretation.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "areaId": {
+          "type": "string",
+          "enum": ["single_spark", "triad_alignment", "astral_grimoire"]
+        },
+        "areaName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "cost": {
+          "type": "integer",
+          "enum": [100, 300, 500]
+        },
+        "question": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "language": {
+          "type": "string",
+          "enum": ["vi", "en"]
+        },
+        "cards": {
+          "type": "array",
+          "description": "Bounded list of 1 to 5 selected Tarot cards with orientation and retrieved guidebook excerpts."
+        },
+        "interpretation": {
+          "type": "object",
+          "description": "Structured Gemini reading output with overview, synthesis, guidance, and cardInsights."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "areaId",
+        "areaName",
+        "cost",
+        "question",
+        "language",
+        "cards",
+        "interpretation",
+        "createdAt"
+      ]
+    },
+    "PlaylistTrack": {
+      "title": "PlaylistTrack",
+      "description": "User-saved YouTube ambient track synchronized across sessions.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 140
+        },
+        "artist": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "youtubeId": {
+          "type": "string",
+          "minLength": 11,
+          "maxLength": 11,
+          "pattern": "^[a-zA-Z0-9_\\-]{11}$"
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "title",
+        "youtubeId",
+        "category",
+        "createdAt"
+      ]
+    },
+    "MusicPreferences": {
+      "title": "MusicPreferences",
+      "description": "Persistent per-user preferences for the global YouTube music player.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "lastTrackId": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "lastPlaylist": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "volume": {
+          "type": "integer"
+        },
+        "muted": {
+          "type": "boolean"
+        },
+        "repeatMode": {
+          "type": "string",
+          "enum": ["off", "all", "one"]
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "lastTrackId",
+        "lastPlaylist",
+        "volume",
+        "muted",
+        "repeatMode",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Private seeker profile and Star Dust balance document, strictly readable and writable by the verified owner."
+    },
+    "/users/{userId}/transactions/{transactionId}": {
+      "schema": { "$ref": "#/entities/StarDustTransaction" },
+      "description": "Append-only Star Dust ledger entries under the owner's user document."
+    },
+    "/users/{userId}/readings/{readingId}": {
+      "schema": { "$ref": "#/entities/TarotReading" },
+      "description": "Persistent Tarot reading archive entries belonging to the owner."
+    },
+    "/users/{userId}/playlists/{trackId}": {
+      "schema": { "$ref": "#/entities/PlaylistTrack" },
+      "description": "Saved YouTube music playlist tracks belonging to the owner."
+    },
+    "/users/{userId}/preferences/{prefId}": {
+      "schema": { "$ref": "#/entities/MusicPreferences" },
+      "description": "Per-user global music player preferences persisted across sessions."
+    }
+  }
+}

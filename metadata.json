@@ -1,0 +1,6 @@
+{
+  "name": "Astral Grimoire",
+  "description": "Bilingual Mystical Manga Tarot sanctuary with Star Dust economy, real-time Firestore archive, and server-side Gemini readings.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
